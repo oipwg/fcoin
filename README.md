@@ -1,12 +1,25 @@
 # Lcoin (Bcoin ported to Litecoin)
 
-__NOTE__: The latest release of bcoin contains a non-backward compatible change
+## Differences between this repo and [bcoin-org/lcoin](https://github.com/bcoin-org/lcoin)
+
+* Based on latest bcoin repo, pick litecoin related commits from bcoin-org/lcoin, applied some modifications and fixed more tests.
+* **May rebase and `push --force` frequently, to catch up with bcoin and make repo easy to maintain.**
+
+## TODO
+
+* [ ] Fix tests:
+    * [ ] block-test
+    * [ ] tx-test
+
+## Lcoin
+
+__NOTE__: The latest release of lcoin contains a non-backward compatible change
 to the rest API. Please read the [changelog]'s "migrating" section for more
 details.
 
 ---
 
-**Lcoin** is an alternative implementation of the bitcoin protocol, written in
+**Lcoin** is an alternative implementation of the litecoin protocol, written in
 node.js.
 
 ## Uses
@@ -23,7 +36,7 @@ Try it in the browser: http://bcoin.io/browser.html
 ## Install
 
 ```
-$ git clone git://github.com/bcoin-org/lcoin.git
+$ git clone git://github.com/ultragtx/lcoin.git
 $ cd lcoin
 $ npm install
 $ ./bin/lcoin
