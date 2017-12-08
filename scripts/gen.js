@@ -66,44 +66,35 @@ function createGenesisBlock(options) {
 
 const main = createGenesisBlock({
   version: 1,
-  time: 1231006505,
-  bits: 486604799,
-  nonce: 2083236893
+  time: 1317972665,
+  bits: 504365040,
+  nonce: 2084524493,
+  flags: Buffer.from(
+    'NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56',
+    'ascii'),
+  key: Buffer.from('040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9', 'hex')
 });
 
 const testnet = createGenesisBlock({
   version: 1,
-  time: 1296688602,
-  bits: 486604799,
-  nonce: 414098458
+  time: 1486949366,
+  bits: 0x1e0ffff0,
+  nonce: 293345,
+  flags: Buffer.from(
+    'NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56',
+    'ascii'),
+  key: Buffer.from('040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9', 'hex')
 });
 
 const regtest = createGenesisBlock({
   version: 1,
   time: 1296688602,
-  bits: 545259519,
-  nonce: 2
-});
-
-const segnet3 = createGenesisBlock({
-  version: 1,
-  time: 1452831101,
-  bits: 486604799,
-  nonce: 0
-});
-
-const segnet4 = createGenesisBlock({
-  version: 1,
-  time: 1452831101,
-  bits: 503447551,
-  nonce: 0
-});
-
-const btcd = createGenesisBlock({
-  version: 1,
-  time: 1401292357,
-  bits: 545259519,
-  nonce: 2
+  bits: 0x207fffff,
+  nonce: 0,
+  flags: Buffer.from(
+    'NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56',
+    'ascii'),
+  key: Buffer.from('040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9', 'hex')
 });
 
 util.log(main);
@@ -111,11 +102,6 @@ util.log('');
 util.log(testnet);
 util.log('');
 util.log(regtest);
-util.log('');
-util.log(segnet3);
-util.log('');
-util.log(segnet4);
-util.log('');
 util.log('');
 util.log('main hash: %s', main.rhash());
 util.log('main raw: %s', main.toRaw().toString('hex'));
@@ -126,11 +112,3 @@ util.log('');
 util.log('regtest hash: %s', regtest.rhash());
 util.log('regtest raw: %s', regtest.toRaw().toString('hex'));
 util.log('');
-util.log('segnet3 hash: %s', segnet3.rhash());
-util.log('segnet3 raw: %s', segnet3.toRaw().toString('hex'));
-util.log('');
-util.log('segnet4 hash: %s', segnet4.rhash());
-util.log('segnet4 raw: %s', segnet4.toRaw().toString('hex'));
-util.log('');
-util.log('btcd simnet hash: %s', btcd.rhash());
-util.log('btcd simnet raw: %s', btcd.toRaw().toString('hex'));

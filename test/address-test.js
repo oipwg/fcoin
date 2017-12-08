@@ -12,7 +12,7 @@ describe('Address', function() {
     const raw = 'e34cce70c86373273efcc54ce7d2a491bb4a0e84';
     const p2pkh = Buffer.from(raw, 'hex');
     const addr = Address.fromPubkeyhash(p2pkh);
-    const expectedAddr = '1MirQ9bwyQcGVJPwKUgapu5ouK2E2Ey4gX';
+    const expectedAddr = 'LfwofMun44rKk766Vcft6v9a7XPWBSppiq';
     assert.strictEqual(addr.toString(), expectedAddr);
   });
 
@@ -20,7 +20,7 @@ describe('Address', function() {
     const raw = '0ef030107fd26e0b6bf40512bca2ceb1dd80adaa';
     const p2pkh = Buffer.from(raw, 'hex');
     const addr = Address.fromPubkeyhash(p2pkh);
-    const expectedAddr = '12MzCDwodF9G1e7jfwLXfR164RNtx4BRVG';
+    const expectedAddr = 'LLawTSFdhuPKGSotr5KpwS4rGdkB7J9vLq';
     assert.strictEqual(addr.toString(), expectedAddr);
   });
 
@@ -90,7 +90,7 @@ describe('Address', function() {
     const raw = '751e76e8199196d454941c45d1b3a323f1433bd6';
     const p2wpkh = Buffer.from(raw, 'hex');
     const addr = Address.fromWitnessPubkeyhash(p2wpkh);
-    const expectedAddr = 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4';
+    const expectedAddr = 'ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9';
     assert.strictEqual(addr.toString(), expectedAddr);
   });
 
@@ -102,14 +102,14 @@ describe('Address', function() {
                         + 'b8c6329604903262', 'hex');
     const addr = Address.fromWitnessScripthash(p2wpkh);
     assert.strictEqual(addr.toString(),
-        'bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3');
+        'ltc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qmu8tk5');
   });
 
   it('should match testnet segwit p2wpkh v0 address', () => {
     const raw = '751e76e8199196d454941c45d1b3a323f1433bd6';
     const p2wpkh = Buffer.from(raw, 'hex');
     const addr = Address.fromWitnessPubkeyhash(p2wpkh, 'testnet');
-    const expectedAddr = 'tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx';
+    const expectedAddr = 'tltc1qw508d6qejxtdg4y5r3zarvary0c5xw7klfsuq0';
     assert.strictEqual(addr.toString(), expectedAddr);
   });
 
@@ -121,7 +121,7 @@ describe('Address', function() {
                         + 'b8c6329604903262', 'hex');
     const addr = Address.fromWitnessScripthash(p2wpkh, 'testnet');
     assert.strictEqual(addr.toString(),
-        'tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7');
+        'tltc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qsnr4fp');
   });
 
   it('should match testnet segwit p2pwsh v0 address 2', () => {
@@ -132,7 +132,7 @@ describe('Address', function() {
                         + '4d165dab93e86433', 'hex');
     const addr = Address.fromWitnessScripthash(p2wpkh, 'testnet');
     assert.strictEqual(addr.toString(),
-        'tb1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesrxh6hy');
+        'tltc1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesu9tmgm');
   });
 
   it('should handle invalid segwit hrp', () => {

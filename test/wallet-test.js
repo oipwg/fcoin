@@ -251,12 +251,12 @@ describe('Wallet', function() {
   });
 
   it('should validate existing address', () => {
-    assert(Address.fromString('1KQ1wMNwXHUYj1nV2xzsRcKUH8gVFpTFUc'));
+    assert(Address.fromString('LdcyCZgmbwibypUeD6zAhdPEVM3mPj4zxH'));
   });
 
   it('should fail to validate invalid address', () => {
     assert.throws(() => {
-      Address.fromString('1KQ1wMNwXHUYj1nv2xzsRcKUH8gVFpTFUc');
+      Address.fromString('LdcyCZgmbwibypueD6zAhdPEVM3mPj4zxH');
     });
   });
 

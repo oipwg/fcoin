@@ -198,7 +198,7 @@ describe('HTTP', function() {
       vbrequired: 0,
       height: 1,
       previousblockhash:
-        '0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206',
+        '530827f38f93b43ed12af0b3ad25a288dc02ed74d6d7857862df51fc56c416f9',
       target:
         '7fffff0000000000000000000000000000000000000000000000000000000000',
       bits: '207fffff',
@@ -210,7 +210,7 @@ describe('HTTP', function() {
       sigoplimit: 20000,
       sizelimit: 1000000,
       longpollid:
-        '0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206'
+        '530827f38f93b43ed12af0b3ad25a288dc02ed74d6d7857862df51fc56c416f9'
         + '0000000000',
       submitold: false,
       coinbaseaux: { flags: '6d696e65642062792062636f696e' },

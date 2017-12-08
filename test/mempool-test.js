@@ -49,7 +49,7 @@ function dummyInput(script, hash) {
 
   const fund = new MTX();
   fund.addCoin(coin);
-  fund.addOutput(script, 70000);
+  fund.addOutput(script, 700000);
 
   const [tx, view] = fund.commit();
 
@@ -72,55 +72,55 @@ describe('Mempool', function() {
     const key = KeyRing.generate();
 
     const t1 = new MTX();
-    t1.addOutput(wallet.getAddress(), 50000);
-    t1.addOutput(wallet.getAddress(), 10000);
+    t1.addOutput(wallet.getAddress(), 500000);
+    t1.addOutput(wallet.getAddress(), 100000);
 
     const script = Script.fromPubkey(key.publicKey);
 
     t1.addCoin(dummyInput(script, encoding.ONE_HASH.toString('hex')));
 
-    const sig = t1.signature(0, script, 70000, key.privateKey, ALL, 0);
+    const sig = t1.signature(0, script, 700000, key.privateKey, ALL, 0);
 
     t1.inputs[0].script = Script.fromItems([sig]);
 
-    // balance: 51000
+    // balance: 510000
     wallet.sign(t1);
 
     const t2 = new MTX();
-    t2.addTX(t1, 0); // 50000
-    t2.addOutput(wallet.getAddress(), 20000);
-    t2.addOutput(wallet.getAddress(), 20000);
+    t2.addTX(t1, 0); // 500000
+    t2.addOutput(wallet.getAddress(), 200000);
+    t2.addOutput(wallet.getAddress(), 200000);
 
-    // balance: 49000
+    // balance: 4900000
     wallet.sign(t2);
 
     const t3 = new MTX();
-    t3.addTX(t1, 1); // 10000
-    t3.addTX(t2, 0); // 20000
-    t3.addOutput(wallet.getAddress(), 23000);
+    t3.addTX(t1, 1); // 100000
+    t3.addTX(t2, 0); // 200000
+    t3.addOutput(wallet.getAddress(), 230000);
 
-    // balance: 47000
+    // balance: 470000
     wallet.sign(t3);
 
     const t4 = new MTX();
-    t4.addTX(t2, 1); // 24000
-    t4.addTX(t3, 0); // 23000
-    t4.addOutput(wallet.getAddress(), 11000);
-    t4.addOutput(wallet.getAddress(), 11000);
+    t4.addTX(t2, 1); // 240000
+    t4.addTX(t3, 0); // 230000
+    t4.addOutput(wallet.getAddress(), 110000);
+    t4.addOutput(wallet.getAddress(), 110000);
 
-    // balance: 22000
+    // balance: 220000
     wallet.sign(t4);
 
     const f1 = new MTX();
-    f1.addTX(t4, 1); // 11000
-    f1.addOutput(new Address(), 9000);
+    f1.addTX(t4, 1); // 110000
+    f1.addOutput(new Address(), 90000);
 
-    // balance: 11000
+    // balance: 110000
     wallet.sign(f1);
 
     const fake = new MTX();
-    fake.addTX(t1, 1); // 1000 (already redeemed)
-    fake.addOutput(wallet.getAddress(), 6000); // 6000 instead of 500
+    fake.addTX(t1, 1); // 10000 (already redeemed)
+    fake.addOutput(wallet.getAddress(), 60000); // 60000 instead of 5000
 
     // Script inputs but do not sign
     wallet.template(fake);
@@ -129,42 +129,42 @@ describe('Mempool', function() {
     const input = fake.inputs[0];
     input.script.setData(0, encoding.ZERO_SIG);
     input.script.compile();
-    // balance: 11000
+    // balance: 110000
 
     {
       await mempool.addTX(fake.toTX());
       await mempool.addTX(t4.toTX());
 
       const balance = mempool.getBalance();
-      assert.strictEqual(balance, 70000);
+      assert.strictEqual(balance, 700000);
     }
 
     {
       await mempool.addTX(t1.toTX());
 
       const balance = mempool.getBalance();
-      assert.strictEqual(balance, 60000);
+      assert.strictEqual(balance, 600000);
     }
 
     {
       await mempool.addTX(t2.toTX());
 
       const balance = mempool.getBalance();
-      assert.strictEqual(balance, 50000);
+      assert.strictEqual(balance, 500000);
     }
 
     {
       await mempool.addTX(t3.toTX());
 
       const balance = mempool.getBalance();
-      assert.strictEqual(balance, 22000);
+      assert.strictEqual(balance, 220000);
     }
 
     {
       await mempool.addTX(f1.toTX());
 
       const balance = mempool.getBalance();
-      assert.strictEqual(balance, 20000);
+      assert.strictEqual(balance, 200000);
     }
 
     const txs = mempool.getHistory();
@@ -177,8 +177,8 @@ describe('Mempool', function() {
     const key = KeyRing.generate();
 
     const tx = new MTX();
-    tx.addOutput(wallet.getAddress(), 50000);
-    tx.addOutput(wallet.getAddress(), 10000);
+    tx.addOutput(wallet.getAddress(), 500000);
+    tx.addOutput(wallet.getAddress(), 100000);
 
     const prev = Script.fromPubkey(key.publicKey);
     const prevHash = random.randomBytes(32).toString('hex');
@@ -188,7 +188,7 @@ describe('Mempool', function() {
 
     chain.tip.height = 200;
 
-    const sig = tx.signature(0, prev, 70000, key.privateKey, ALL, 0);
+    const sig = tx.signature(0, prev, 700000, key.privateKey, ALL, 0);
     tx.inputs[0].script = Script.fromItems([sig]);
 
     await mempool.addTX(tx.toTX());
@@ -199,8 +199,8 @@ describe('Mempool', function() {
     const key = KeyRing.generate();
 
     const tx = new MTX();
-    tx.addOutput(wallet.getAddress(), 50000);
-    tx.addOutput(wallet.getAddress(), 10000);
+    tx.addOutput(wallet.getAddress(), 500000);
+    tx.addOutput(wallet.getAddress(), 100000);
 
     const prev = Script.fromPubkey(key.publicKey);
     const prevHash = random.randomBytes(32).toString('hex');
@@ -209,7 +209,7 @@ describe('Mempool', function() {
     tx.setLocktime(200);
     chain.tip.height = 200 - 1;
 
-    const sig = tx.signature(0, prev, 70000, key.privateKey, ALL, 0);
+    const sig = tx.signature(0, prev, 700000, key.privateKey, ALL, 0);
     tx.inputs[0].script = Script.fromItems([sig]);
 
     let err;
@@ -230,8 +230,8 @@ describe('Mempool', function() {
     key.witness = true;
 
     const tx = new MTX();
-    tx.addOutput(wallet.getAddress(), 50000);
-    tx.addOutput(wallet.getAddress(), 10000);
+    tx.addOutput(wallet.getAddress(), 500000);
+    tx.addOutput(wallet.getAddress(), 100000);
 
     const prev = Script.fromProgram(0, key.getKeyHash());
     const prevHash = random.randomBytes(32).toString('hex');
@@ -240,7 +240,7 @@ describe('Mempool', function() {
 
     const prevs = Script.fromPubkeyhash(key.getKeyHash());
 
-    const sig = tx.signature(0, prevs, 70000, key.privateKey, ALL, 1);
+    const sig = tx.signature(0, prevs, 700000, key.privateKey, ALL, 1);
     sig[sig.length - 1] = 0;
 
     tx.inputs[0].witness = new Witness([sig, key.publicKey]);
@@ -260,15 +260,15 @@ describe('Mempool', function() {
     const key = KeyRing.generate();
 
     const tx = new MTX();
-    tx.addOutput(wallet.getAddress(), 50000);
-    tx.addOutput(wallet.getAddress(), 10000);
+    tx.addOutput(wallet.getAddress(), 500000);
+    tx.addOutput(wallet.getAddress(), 100000);
 
     const prev = Script.fromPubkey(key.publicKey);
     const prevHash = random.randomBytes(32).toString('hex');
 
     tx.addCoin(dummyInput(prev, prevHash));
 
-    const sig = tx.signature(0, prev, 70000, key.privateKey, ALL, 0);
+    const sig = tx.signature(0, prev, 700000, key.privateKey, ALL, 0);
     tx.inputs[0].script = Script.fromItems([sig]);
     tx.inputs[0].witness.push(Buffer.alloc(0));
 
@@ -289,8 +289,8 @@ describe('Mempool', function() {
     key.witness = true;
 
     const tx = new MTX();
-    tx.addOutput(wallet.getAddress(), 50000);
-    tx.addOutput(wallet.getAddress(), 10000);
+    tx.addOutput(wallet.getAddress(), 500000);
+    tx.addOutput(wallet.getAddress(), 100000);
 
     const prev = Script.fromProgram(0, key.getKeyHash());
     const prevHash = random.randomBytes(32).toString('hex');
@@ -313,8 +313,8 @@ describe('Mempool', function() {
     const key = KeyRing.generate();
 
     const tx = new MTX();
-    tx.addOutput(wallet.getAddress(), 50000);
-    tx.addOutput(wallet.getAddress(), 10000);
+    tx.addOutput(wallet.getAddress(), 500000);
+    tx.addOutput(wallet.getAddress(), 100000);
 
     const prev = Script.fromPubkey(key.publicKey);
     const prevHash = random.randomBytes(32).toString('hex');
@@ -338,7 +338,7 @@ describe('Mempool', function() {
   it('should clear reject cache', async () => {
     const tx = new MTX();
     tx.addOutpoint(new Outpoint());
-    tx.addOutput(wallet.getAddress(), 50000);
+    tx.addOutput(wallet.getAddress(), 500000);
 
     assert(mempool.hasReject(cachedTX.hash()));
 

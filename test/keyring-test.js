@@ -7,10 +7,10 @@ const assert = require('./util/assert');
 const KeyRing = require('../lib/primitives/keyring');
 
 const uncompressed = KeyRing.fromSecret(
-  '5KYZdUEo39z3FPrtuX2QbbwGnNP5zTd7yyr2SC1j299sBCnWjss');
+  '6vrJ6bnKwaSuimkkRLpNNziSjqwZCG59kfFC9P2kjbUUs5Y6Cw9');
 
 const compressed = KeyRing.fromSecret(
-  'L4rK1yDtCWekvXuE6oXD9jCYfFNV2cWRpVuPLBcCU2z8TrisoyY1');
+  'TAgaTiX4btdMhNY6eSU5N5jvc71o6hXKdhoeBzEk31AHykGDou8i');
 
 describe('KeyRing', function() {
   it('should get uncompressed public key', () => {
@@ -22,13 +22,13 @@ describe('KeyRing', function() {
 
   it('should get uncompressed public key address', () => {
     assert.strictEqual(
-      '1HZwkjkeaoZfTSaJxDw6aKkxp45agDiEzN',
+      'Lbnu1x4UfToiiFGU8MvPrLpj2GSrtUrxFH',
       uncompressed.getKeyAddress('base58'));
   });
 
   it('should get uncompressed WIF', () => {
     assert.strictEqual(
-      '5KYZdUEo39z3FPrtuX2QbbwGnNP5zTd7yyr2SC1j299sBCnWjss',
+      '6vrJ6bnKwaSuimkkRLpNNziSjqwZCG59kfFC9P2kjbUUs5Y6Cw9',
       uncompressed.toSecret());
   });
 
@@ -40,13 +40,13 @@ describe('KeyRing', function() {
 
   it('should get compressed public key address', () => {
     assert.strictEqual(
-      '1F3sAm6ZtwLAUnj7d38pGFxtP3RVEvtsbV',
+      'LZGpRyQPybaDjbRGoB87YH2ebFnmKYmRui',
       compressed.getKeyAddress('base58'));
   });
 
   it('should get compressed WIF', () => {
     assert.strictEqual(
-      'L4rK1yDtCWekvXuE6oXD9jCYfFNV2cWRpVuPLBcCU2z8TrisoyY1',
+      'TAgaTiX4btdMhNY6eSU5N5jvc71o6hXKdhoeBzEk31AHykGDou8i',
       compressed.toSecret());
   });
 });
