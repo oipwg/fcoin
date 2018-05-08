@@ -2,7 +2,7 @@
 
 'use strict';
 
-process.title = 'lcoin';
+process.title = 'fcoin';
 
 const assert = require('assert');
 const SPVNode = require('../lib/node/spvnode');

@@ -1,20 +1,25 @@
 {
-  "name": "lcoin",
+  "name": "fcoin",
   "version": "1.0.0-beta.15",
-  "description": "Litecoin bike-shed",
+  "description": "Flo bike-shed",
   "license": "MIT",
-  "repository": "git://github.com/bcoin-org/lcoin.git",
-  "homepage": "https://github.com/bcoin-org/lcoin",
+  "repository": "git://github.com/oipwg/fcoin.git",
+  "homepage": "https://github.com/oipwg/fcoin",
   "bugs": {
-    "url": "https://github.com/bcoin-org/lcoin/issues"
+    "url": "https://github.com/oipwg/fcoin/issues"
   },
   "author": "Fedor Indutny <fedor@indutny.com>",
   "contributors": [
     "Christopher Jeffrey <chjjeffrey@gmail.com>"
+    "Sky Young <sky@alexandria.io>"
   ],
   "keywords": [
     "bcoin",
+    "lcoin",
+    "fcoin",
     "bitcoin",
+    "litecoin",
+    "flo",
     "blockchain",
     "cryptocurrency",
     "wallet"
@@ -53,10 +58,10 @@
   },
   "main": "./lib/bcoin.js",
   "bin": {
-    "lcoin": "./bin/lcoin",
-    "lcoin-cli": "./bin/cli",
-    "lcoin-node": "./bin/node",
-    "lcoin-spvnode": "./bin/spvnode"
+    "fcoin": "./bin/fcoin",
+    "fcoin-cli": "./bin/cli",
+    "fcoin-node": "./bin/node",
+    "fcoin-spvnode": "./bin/spvnode"
   },
   "scripts": {
     "clean": "rm -f {browser/,}{bcoin.js,bcoin-worker.js}",

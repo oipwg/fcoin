@@ -12,14 +12,14 @@ const ANTIREPLAY = ''
   + '220456c656374726f6e696320436173682053797374656d';
 
 function CLI() {
-  this.config = new Config('lcoin');
+  this.config = new Config('fcoin');
 
   this.config.load({
     argv: true,
     env: true
   });
 
-  this.config.open('lcoin.conf');
+  this.config.open('fcoin.conf');
 
   this.argv = this.config.argv;
   this.client = null;

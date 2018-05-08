@@ -66,33 +66,36 @@ function createGenesisBlock(options) {
 
 const main = createGenesisBlock({
   version: 1,
-  time: 1317972665,
+  time: 1371488396,
   bits: 504365040,
-  nonce: 2084524493,
+  nonce: 1000112548,
+  strFloData: "text:Florincoin genesis block",
   flags: Buffer.from(
-    'NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56',
+    'Slashdot - 17 June 2013 - Saudi Arabia Set To Ban WhatsApp, Skype',
     'ascii'),
   key: Buffer.from('040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9', 'hex')
 });
 
 const testnet = createGenesisBlock({
   version: 1,
-  time: 1486949366,
+  time: 1371387277,
   bits: 0x1e0ffff0,
-  nonce: 293345,
+  nonce: 1000580675,
+  strFloData: "text:Florincoin genesis block",
   flags: Buffer.from(
-    'NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56',
+    'Slashdot - 17 June 2013 - Saudi Arabia Set To Ban WhatsApp, Skype',
     'ascii'),
   key: Buffer.from('040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9', 'hex')
 });
 
 const regtest = createGenesisBlock({
   version: 1,
-  time: 1296688602,
+  time: 1371387277,
   bits: 0x207fffff,
   nonce: 0,
+  strFloData: "text:Florincoin genesis block",
   flags: Buffer.from(
-    'NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56',
+    'Slashdot - 17 June 2013 - Saudi Arabia Set To Ban WhatsApp, Skype',
     'ascii'),
   key: Buffer.from('040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9', 'hex')
 });
