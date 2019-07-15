@@ -2,4 +2,4 @@
 
 'use strict';
 
-require('bclient/bin/bcoin-cli');
+require('fclient/bin/fcoin-cli');
