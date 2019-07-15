@@ -3,14 +3,13 @@
 
 'use strict';
 
-const assert = require('./util/assert');
+const bio = require('bufio');
+const assert = require('bsert');
 const Output = require('../lib/primitives/output');
 const Input = require('../lib/primitives/input');
 const Outpoint = require('../lib/primitives/outpoint');
 const CoinView = require('../lib/coins/coinview');
 const CoinEntry = require('../lib/coins/coinentry');
-const StaticWriter = require('../lib/utils/staticwriter');
-const BufferReader = require('../lib/utils/reader');
 const common = require('./util/common');
 
 const tx1 = common.readTX('tx1');
@@ -32,7 +31,7 @@ function deepCoinsEqual(a, b) {
 describe('Coins', function() {
   it('should instantiate coinview from tx', () => {
     const [tx] = tx1.getTX();
-    const hash = tx.hash('hex');
+    const hash = tx.hash();
     const view = new CoinView();
     const prevout = new Outpoint(hash, 0);
     const input = Input.fromOutpoint(prevout);
@@ -49,7 +48,7 @@ describe('Coins', function() {
     assert.strictEqual(entry.height, 1);
     assert.strictEqual(entry.coinbase, false);
     assert.strictEqual(entry.raw, null);
-    assert.instanceOf(entry.output, Output);
+    assert(entry.output instanceof Output);
     assert.strictEqual(entry.spent, false);
 
     const output = view.getOutputFor(input);
@@ -60,7 +59,7 @@ describe('Coins', function() {
 
   it('should spend an output', () => {
     const [tx] = tx1.getTX();
-    const hash = tx.hash('hex');
+    const hash = tx.hash();
     const view = new CoinView();
 
     view.addTX(tx, 1);
@@ -88,9 +87,9 @@ describe('Coins', function() {
     const [tx, view] = tx1.getTX();
 
     const size = view.getSize(tx);
-    const bw = new StaticWriter(size);
+    const bw = bio.write(size);
     const raw = view.toWriter(bw, tx).render();
-    const br = new BufferReader(raw);
+    const br = bio.read(raw);
     const res = CoinView.fromReader(br, tx);
 
     const prev = tx.inputs[0].prevout;

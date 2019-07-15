@@ -1,8 +1,11 @@
 'use strict';
 
-const assert = require('assert');
+const assert = require('bsert');
+const {tmpdir} = require('os');
 const path = require('path');
-const fs = require('../../lib/utils/fs');
+const fs = require('bfile');
+const bio = require('bufio');
+const {randomBytes} = require('bcrypto/lib/random');
 const Block = require('../../lib/primitives/block');
 const MerkleBlock = require('../../lib/primitives/merkleblock');
 const Headers = require('../../lib/primitives/headers');
@@ -10,8 +13,6 @@ const {CompactBlock} = require('../../lib/net/bip152');
 const TX = require('../../lib/primitives/tx');
 const Output = require('../../lib/primitives/output');
 const CoinView = require('../../lib/coins/coinview');
-const BufferReader = require('../../lib/utils/reader');
-const BufferWriter = require('../../lib/utils/writer');
 
 const common = exports;
 
@@ -86,8 +87,44 @@ common.writeTX = function writeTX(name, tx, view) {
   common.writeFile(`${name}-undo.raw`, undoRaw);
 };
 
+common.testdir = function(name) {
+  assert(/^[a-z]+$/.test(name), 'Invalid name');
+
+  const uniq = randomBytes(4).toString('hex');
+  return path.join(tmpdir(), `bcoin-test-${name}-${uniq}`);
+};
+
+common.rimraf = async function(p) {
+  const allowed = /bcoin\-test\-[a-z]+\-[a-f0-9]{8}(\/[a-z]+)?$/;
+  if (!allowed.test(p))
+    throw new Error(`Path not allowed: ${p}.`);
+
+  return await fs.rimraf(p);
+};
+
+common.forValue = async function(obj, key, val, timeout = 30000) {
+  assert(typeof obj === 'object');
+  assert(typeof key === 'string');
+
+  const ms = 10;
+  let interval = null;
+  let count = 0;
+  return new Promise((resolve, reject) => {
+    interval = setInterval(() => {
+      if (obj[key] === val) {
+        clearInterval(interval);
+        resolve();
+      } else if (count * ms >= timeout) {
+        clearInterval(interval);
+        reject(new Error('Timeout waiting for value.'));
+      }
+      count += 1;
+    }, ms);
+  });
+};
+
 function parseUndo(data) {
-  const br = new BufferReader(data);
+  const br = bio.read(data);
   const items = [];
 
   while (br.left()) {
@@ -99,7 +136,7 @@ function parseUndo(data) {
 }
 
 function serializeUndo(items) {
-  const bw = new BufferWriter();
+  const bw = bio.write();
 
   for (const item of items) {
     bw.writeI64(item.value);
