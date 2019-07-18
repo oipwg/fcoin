@@ -2,4 +2,4 @@
 
 'use strict';
 
-require('fclient/bin/fwallet-cli');
+require('@oipwg/fclient/bin/fwallet-cli');
