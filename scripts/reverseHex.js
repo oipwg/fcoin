@@ -30,6 +30,14 @@ var checkpoints = {
   // 2800000: 'fcbc1e5553bd81177477578dd94f567fd4f06442ef94cf04b67d5c343ff1c1bd',
   // 2900000: '4e30a7ac9b5f24f57c98f603c41c849ba1eb41fec17fa7d48fa9fda81fd59305',
   // 3000000: '5ad3a302e3b1c681f0177411384ea03ee595a80a530c23a61f22839fae948e7f'
+  // 3100000: 'db81ac8d65c4ab92c160e8e7102f547813e588b54d92b8e2a6e7a22bd1bd07fd',
+  // 3200000: '8cb2be5dc584757a669fe2b12cb1648e08417a5f27a8ed2552493a547a7aa3e9',
+  // 3300000: '96cd2d29f76b32c01c7fc63862a5df636e1c6c2418fb2ec8ab57f8f530baf23d',
+  // 3400000: 'dded264a4c804036a05c0ceb4829bb1e2eaea99253958dc69f44f0dc190c533e',
+  // 3500000: '25aa1145525023f7d81f662cb2edfcc6446ab05ec467522207f1203202674401',
+  // 3549123: 'f6c3730950b5d8a22e41fffcbccb27dae2e2f2c0b6dc1ae1cc1bbb743af97e76',
+  // 3550000: '',
+
   // Testnet
   2056: 'd3334db071731beaa651f10624c2fea1a5e8c6f9e50f0e602f86262938374148',
   10000: '9068605f2cd1ec5206f835e337ef53e1e5ac1a0ccb834923064d3b184afd3879',
@@ -40,23 +48,19 @@ var checkpoints = {
   200000: 'ac569d0dee91b8e9dd1a428ae7f9be9bbe82b646f9dca89604871c13c220b39f',
   225000: '2735e9c90420163275908fb09a52dd5b5373e13fadaf98f56dc0c5c969147112',
   245000: 'd3bfc53d65985948f09c3c722966981db1755dfdfcd671db60356bfabeb99c15'
+  300000: '244d7e4bb021c6899a1de24bac2ff3d76c815a0244b461d098cdb78e5e5202f6',
+  400000: '0705bd4fa97fca140153b7fafc8f54ca08d1c0bb16b67d563ff8cd34fffc1457',
+  500000: 'ffe2fbe9bc744c26f180906190c53231d186696d682f8dd0b50a7cb3c3dd8789',
+  600000: '1d002a640eb5ad7ceb5c9f84b7495220199d329cda5de126df85e4bc26f5353e',
+  686000: '9ba779f1ab8120d69164b86c41125b7db32c6f3bfee8c0c853f2eedfad5f41ba'
 }
 
 var reversedCheckpoints = {}
 
 for (var height in checkpoints){
   var checkStr = checkpoints[height];
-  var strArray = checkStr.match(/.{1,2}/g);
 
-  var reversedArray = strArray.reverse();
-
-  var builtStr = "";
-
-  for (var str of reversedArray){
-    builtStr += str;
-  }
-
-  reversedCheckpoints[height] = builtStr;
+  reversedCheckpoints[height] = Buffer.from(checkStr, 'hex').reverse().toString('hex');
 }
 
 console.log(reversedCheckpoints)
