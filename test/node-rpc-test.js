@@ -26,7 +26,7 @@ const node = new FullNode({
     'BCOIN_WALLET_HTTP_PORT': ports.wallet.toString()
   }});
 
-const {NodeClient} = require('bclient');
+const {NodeClient} = require('@oipwg/fclient');
 
 const nclient = new NodeClient({
   port: ports.node,

@@ -2,7 +2,7 @@
 
 'use strict';
 
-const {NodeClient, WalletClient} = require('bclient');
+const {NodeClient, WalletClient} = require('@oipwg/fclient');
 const assert = require('bsert');
 const consensus = require('../lib/protocol/consensus');
 const FullNode = require('../lib/node/fullnode');
