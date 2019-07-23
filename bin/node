@@ -28,6 +28,7 @@ const node = new FullNode({
   logFile: true,
   logConsole: true,
   logLevel: 'debug',
+  checkpoints: true,
   memory: false,
   workers: true,
   listen: true,
