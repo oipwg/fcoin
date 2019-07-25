@@ -37,7 +37,7 @@ function Coins(options) {
     return new Coins(options);
 
   this.version = 1;
-  this.hash = encoding.NULL_HASH;
+  this.hash = encoding.ZERO_HASH;
   this.height = -1;
   this.coinbase = true;
   this.outputs = [];
@@ -54,17 +54,17 @@ function Coins(options) {
 
 Coins.prototype.fromOptions = function fromOptions(options) {
   if (options.version != null) {
-    assert(util.isU32(options.version));
+    assert((options.version >>> 0) === options.version);
     this.version = options.version;
   }
 
   if (options.hash) {
-    assert(typeof options.hash === 'string');
+    assert(Buffer.isBuffer(options.hash));
     this.hash = options.hash;
   }
 
   if (options.height != null) {
-    assert(util.isInt(options.height));
+    assert(Number.isSafeInteger(options.height));
     this.height = options.height;
   }
 
@@ -562,7 +562,7 @@ Coins.prototype.fromTX = function fromTX(tx, height) {
   assert(typeof height === 'number');
 
   this.version = tx.version;
-  this.hash = tx.hash('hex');
+  this.hash = tx.hash();
   this.height = height;
   this.coinbase = tx.isCoinbase();
 

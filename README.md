@@ -22,6 +22,10 @@ details.
 **Fcoin** is an alternative implementation of the flo protocol, written in
 node.js.
 
+Bcoin, the parent project, is well tested and aware of all known consensus rules. It is currently
+used in production as the consensus backend and wallet system for
+[purse.io][purse].
+
 ## Uses
 
 - Full Node
@@ -31,7 +35,7 @@ node.js.
 - Layer 2 Backend (lightning)
 - General Purpose Bitcoin Library
 
-Try it in the browser: http://bcoin.io/browser.html
+Try it in the browser: [https://bcoin.io/browser/](https://bcoin.io/browser/)
 
 ## Install
 
@@ -42,13 +46,14 @@ $ npm install
 $ ./bin/fcoin
 ```
 
-See the [Beginner's Guide][guide] for more in-depth installation instructions.
+See the [Getting started][guide] guide for more in-depth installation
+instructions, including verifying releases.
 
 ## Documentation
 
-- API Docs: http://bcoin.io/docs/
-- REST Docs: http://bcoin.io/api-docs/index.html
-- Docs: [docs/](docs/README.md)
+- General docs: [docs/](docs/README.md)
+- Wallet and node API docs: https://bcoin.io/api-docs/
+- Library API docs: https://bcoin.io/docs/
 
 ## Support
 
@@ -74,7 +79,12 @@ all code is your original work. `</legalese>`
 See LICENSE for more info.
 
 [purse]: https://purse.io
-[guide]: https://github.com/bcoin-org/bcoin/blob/master/docs/Beginner's-Guide.md
+[guide]: docs/getting-started.md
 [freenode]: https://freenode.net/
 [irc]: irc://irc.freenode.net/bcoin
-[changelog]: https://github.com/bcoin-org/bcoin/blob/master/CHANGELOG.md
+[changelog]: CHANGELOG.md
+
+[coverage-status-img]: https://codecov.io/gh/bcoin-org/bcoin/badge.svg?branch=master
+[coverage-status-url]: https://codecov.io/gh/bcoin-org/bcoin?branch=master
+[circleci-status-img]: https://circleci.com/gh/bcoin-org/bcoin/tree/master.svg?style=shield
+[circleci-status-url]: https://circleci.com/gh/bcoin-org/bcoin/tree/master

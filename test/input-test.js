@@ -3,10 +3,10 @@
 
 'use strict';
 
-const Input = require('../lib/primitives/input');
+const bio = require('bufio');
 const util = require('../lib/utils/util');
-const BufferReader = require('../lib/utils/reader');
-const assert = require('./util/assert');
+const Input = require('../lib/primitives/input');
+const assert = require('bsert');
 const common = require('./util/common');
 
 // Take input rawbytes from the raw data format
@@ -22,7 +22,8 @@ const input2 = tx2.getRaw().slice(152, 339);
 const tx3 = common.readTX('tx4');
 const input3 = tx3.getRaw().slice(5, 266);
 
-const bip69tests = require('./data/bip69');
+// test files: https://github.com/bitcoinjs/bip69/blob/master/test/fixtures.json
+const bip69tests = require('./data/bip69/bip69.json');
 
 describe('Input', function() {
   it('should return same raw', () => {
@@ -37,7 +38,7 @@ describe('Input', function() {
   it('should return same raw on fromReader', () => {
     [input1, input2, input3].forEach((rawinput) => {
       const raw = rawinput.slice();
-      const input = Input.fromReader(new BufferReader(raw));
+      const input = Input.fromReader(bio.read(raw));
 
       assert.bufferEqual(raw, input.toRaw());
     });
@@ -51,7 +52,7 @@ describe('Input', function() {
     const input = Input.fromRaw(raw);
 
     const type = input.getType();
-    const addr = input.getAddress().toBase58();
+    const addr = input.getAddress().toBase58('main');
     const prevout = input.prevout.toRaw();
 
     assert.strictEqual(type, 'pubkeyhash');
@@ -100,7 +101,7 @@ describe('Input', function() {
 
     const type = input.getType();
     const subtype = input.getSubtype();
-    const addr = input.getAddress().toBase58();
+    const addr = input.getAddress().toBase58('main');
     const prevout = input.prevout.toRaw();
     const redeem = input.getRedeem().toRaw();
 
@@ -216,8 +217,9 @@ describe('Input', function() {
 
     const options = {
       prevout: {
-        hash: '8759d7397a86d6c42dfe2c55612e523d' +
-              '171e51708fec9e289118deb5ba994001',
+        hash: Buffer.from(
+              '8759d7397a86d6c42dfe2c55612e523d' +
+              '171e51708fec9e289118deb5ba994001', 'hex'),
         index: 1
       },
       script: rawscript,
@@ -236,7 +238,7 @@ describe('Input', function() {
         const inputs = test.inputs.map((prevout, i) => {
           const input = Input.fromOptions({
             prevout: {
-              hash: util.revHex(prevout.txId),
+              hash: util.fromRev(prevout.txId),
               index: prevout.vout
             }
           });
