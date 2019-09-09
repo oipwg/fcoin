@@ -3,14 +3,15 @@
 
 'use strict';
 
-const assert = require('./util/assert');
+const assert = require('bsert');
 const KeyRing = require('../lib/primitives/keyring');
+const Script = require('../lib/script/script');
 
 const uncompressed = KeyRing.fromSecret(
-  '6vrJ6bnKwaSuimkkRLpNNziSjqwZCG59kfFC9P2kjbUUs5Y6Cw9');
+  '6vrJ6bnKwaSuimkkRLpNNziSjqwZCG59kfFC9P2kjbUUs5Y6Cw9', 'main');
 
 const compressed = KeyRing.fromSecret(
-  'TAgaTiX4btdMhNY6eSU5N5jvc71o6hXKdhoeBzEk31AHykGDou8i');
+  'TAgaTiX4btdMhNY6eSU5N5jvc71o6hXKdhoeBzEk31AHykGDou8i', 'main');
 
 describe('KeyRing', function() {
   it('should get uncompressed public key', () => {
@@ -23,13 +24,13 @@ describe('KeyRing', function() {
   it('should get uncompressed public key address', () => {
     assert.strictEqual(
       'Lbnu1x4UfToiiFGU8MvPrLpj2GSrtUrxFH',
-      uncompressed.getKeyAddress('base58'));
+      uncompressed.getKeyAddress('base58', 'main'));
   });
 
   it('should get uncompressed WIF', () => {
     assert.strictEqual(
       '6vrJ6bnKwaSuimkkRLpNNziSjqwZCG59kfFC9P2kjbUUs5Y6Cw9',
-      uncompressed.toSecret());
+      uncompressed.toSecret('main'));
   });
 
   it('should get compressed public key', () => {
@@ -41,12 +42,25 @@ describe('KeyRing', function() {
   it('should get compressed public key address', () => {
     assert.strictEqual(
       'LZGpRyQPybaDjbRGoB87YH2ebFnmKYmRui',
-      compressed.getKeyAddress('base58'));
+      compressed.getKeyAddress('base58', 'main'));
   });
 
   it('should get compressed WIF', () => {
     assert.strictEqual(
       'TAgaTiX4btdMhNY6eSU5N5jvc71o6hXKdhoeBzEk31AHykGDou8i',
-      compressed.toSecret());
+      compressed.toSecret('main'));
+  });
+
+  it('should get keys from multisig', () => {
+    const script = Script.fromMultisig(1, 2, [
+      compressed.getPublicKey(),
+      uncompressed.getPublicKey()]);
+
+    assert.strictEqual(
+      compressed.getPublicKey(),
+      KeyRing.fromMultisigScript(script, 1).getPublicKey());
+    assert.strictEqual(
+      uncompressed.getPublicKey(),
+      KeyRing.fromMultisigScript(script, 2).getPublicKey());
   });
 });

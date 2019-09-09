@@ -1,11 +1,11 @@
 'use strict';
 
+const random = require('bcrypto/lib/random');
 const Address = require('../lib/primitives/address');
 const TX = require('../lib/primitives/tx');
 const Script = require('../lib/script/script');
 const MTX = require('../lib/primitives/mtx');
-const encoding = require('../lib/utils/encoding');
-const random = require('../lib/crypto/random');
+const consensus = require('../lib/protocol/consensus');
 const common = require('../test/util/common');
 const bench = require('./bench');
 
@@ -84,7 +84,7 @@ const tx10 = common.readTX('tx10');
   const end = bench('input hashes');
 
   for (let i = 0; i < 10000; i++)
-    tx.getInputHashes(null, 'hex');
+    tx.getInputHashes();
 
   end(10000);
 }
@@ -94,7 +94,7 @@ const tx10 = common.readTX('tx10');
   const end = bench('output hashes');
 
   for (let i = 0; i < 10000; i++)
-    tx.getOutputHashes('hex');
+    tx.getOutputHashes();
 
   end(10000);
 }
@@ -104,7 +104,7 @@ const tx10 = common.readTX('tx10');
   const end = bench('all hashes');
 
   for (let i = 0; i < 10000; i++)
-    tx.getHashes(null, 'hex');
+    tx.getHashes();
 
   end(10000);
 }
@@ -156,7 +156,7 @@ const mtx = new MTX();
 for (let i = 0; i < 100; i++) {
   mtx.addInput({
     prevout: {
-      hash: encoding.NULL_HASH,
+      hash: consensus.ZERO_HASH,
       index: 0
     },
     script: new Script()
@@ -176,7 +176,7 @@ const tx2 = mtx.toTX();
   const end = bench('input hashes');
 
   for (let i = 0; i < 10000; i++)
-    tx2.getInputHashes(null, 'hex');
+    tx2.getInputHashes();
 
   end(10000);
 }
@@ -185,7 +185,7 @@ const tx2 = mtx.toTX();
   const end = bench('output hashes');
 
   for (let i = 0; i < 10000; i++)
-    tx2.getOutputHashes('hex');
+    tx2.getOutputHashes();
 
   end(10000);
 }
@@ -194,7 +194,7 @@ const tx2 = mtx.toTX();
   const end = bench('all hashes');
 
   for (let i = 0; i < 10000; i++)
-    tx2.getHashes(null, 'hex');
+    tx2.getHashes();
 
   end(10000);
 }
