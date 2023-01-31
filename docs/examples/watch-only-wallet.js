@@ -20,10 +20,10 @@ const bcoin = require('../..');
   // m'/44'
   const bip44Key = priv.derive(44, true);
 
-  // m'/44'/0'
-  const bitcoinKey = bip44Key.derive(0, true);
+  // m'/44'/216'
+  const bitcoinKey = bip44Key.derive(216, true);
 
-  // m'/44'/0'/0'
+  // m'/44'/216'/0'
   const accountKey = bitcoinKey.derive(0, true);
 
   // account extended public key
