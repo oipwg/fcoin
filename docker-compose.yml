@@ -1,0 +1,11 @@
+version: '3'
+services:
+  fcoind:
+    image: opennetwork/fcoin
+    ports:
+      - "7315:7315"
+    logging:
+      options:
+        max-size: "10m"
+    volumes:
+      - ./data:/data
