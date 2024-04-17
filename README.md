@@ -42,8 +42,8 @@ Try it in the browser: [https://bcoin.io/browser/](https://bcoin.io/browser/)
 ```
 $ git clone git://github.com/oipwg/fcoin.git
 $ cd fcoin
-$ npm install
-$ ./bin/fcoin
+$ docker build -t fcoin:dev .
+$ docker run fcoin:dev
 ```
 
 See the [Getting started][guide] guide for more in-depth installation
@@ -58,6 +58,9 @@ instructions, including verifying releases.
 ## Support
 
 Join us on [freenode][freenode] in the [#bcoin][irc] channel.
+
+## Development
+Use the docker container for development, it will offer quick reloading and a consistent development environment. If you try to run `npm install` locally you might run into version issues with node-gyp
 
 ## Disclaimer
 
