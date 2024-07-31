@@ -1,24 +1,28 @@
 # Use a specific version of node on Alpine for better predictability
-FROM node:10.24.1-alpine3.11
+FROM --platform=linux/amd64 node:22-alpine
 
 # Install build dependencies necessary for native modules
 # Python and make are required for node-gyp, alpine-sdk includes build essentials
 RUN apk --no-cache add \
-    python \
+    python3 \
     make \
     g++ \
     git \
-    && npm install -g node-gyp@latest
+    curl \
+    tar
 
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or npm-shrinkwrap.json) first for better cache utilization
-COPY package*.json ./
-RUN npm install
+# Copy yarn.lock first for better cache utilization
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn
+
+RUN mkdir /data
 
 # Copy the rest of the application
 COPY . .
 
-EXPOSE 7318
+EXPOSE 7312 7313 7314 7315 17312 17313 17314 17315 17412 17413 17414 17415
 
-CMD [ "/app/bin/fcoin", "--prefix", "/data", "--index-tx=true", "--index-address=true", "--log-level=debug", "--http-port=7318", "--bip37=true", "--max-outbound=100", "--max-inbound=100", "--listen=true" ]
+CMD ["/bin/sh", "start.sh"]
