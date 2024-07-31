@@ -1,0 +1,7 @@
+listen: true
+max-inbound: 100
+max-outbound: 100
+index-tx: true
+index-address: true
+wallet-checkpoints: true
+bip37: true
